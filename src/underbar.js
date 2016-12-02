@@ -110,6 +110,15 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    var result = [];
+
+    _.filter(array, function(ele) {
+      if(_.indexOf(result, ele) < 0){
+        result.push(ele);
+      }  
+    });
+    
+    return result;
   };
 
 
