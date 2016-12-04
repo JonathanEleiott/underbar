@@ -324,6 +324,24 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    var objCalled = {};
+    var result;
+
+    return function() {
+      var arr = []
+
+      _.each(arguments, function(ele) {
+        arr.push(ele);
+        arr.push(arguments);
+      });
+
+      if(!objCalled[arr]) {
+        result = func.apply(this, arguments);
+        objCalled[arr] = arr;
+      }
+
+      return result;
+    }
   };
 
   // Delays a function for the given number of milliseconds, and then calls
